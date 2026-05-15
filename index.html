@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Monitoring Tasks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LEAN ERP NORTH AMERICA PROJECT</h1>
+            <h2>Daily Monitoring Tasks</h2>
+            <p>Track your daily tasks and hours from May 18, 2026 to December 31, 2026</p>
+        </header>
+
+        <div class="controls">
+            <div class="filter-section">
+                <label for="employeeFilter">Select Employee:</label>
+                <select id="employeeFilter">
+                    <option value="">All Employees</option>
+                    <option value="Meghana Krishna">Meghana Krishna</option>
+                    <option value="Yogashree YV">Yogashree YV</option>
+                    <option value="Bhuvana V">Bhuvana V</option>
+                    <option value="Meenakshi Degulmath">Meenakshi Degulmath</option>
+                    <option value="Rachana Raghu">Rachana Raghu</option>
+                    <option value="Samitha R Amin">Samitha R Amin</option>
+                    <option value="Midhun Karunanidhi">Midhun Karunanidhi</option>
+                    <option value="Harsha Priyadarshini">Harsha Priyadarshini</option>
+                    <option value="Prajwal MD">Prajwal MD</option>
+                    <option value="Manaswitha Paladugu">Manaswitha Paladugu</option>
+                </select>
+            </div>
+
+            <div class="date-section">
+                <label for="startDateFilter">Start Date:</label>
+                <input type="date" id="startDateFilter" min="2026-05-18" max="2026-12-31">
+            </div>
+
+            <div class="date-section">
+                <label for="endDateFilter">End Date:</label>
+                <input type="date" id="endDateFilter" min="2026-05-18" max="2026-12-31">
+            </div>
+
+            <div class="quick-date-section">
+                <label for="quickDateFilter">Quick Filters:</label>
+                <select id="quickDateFilter">
+                    <option value="">Select Date Range</option>
+                    <option value="thisWeek">This Week</option>
+                    <option value="lastWeek">Last Week</option>
+                    <option value="thisMonth">This Month</option>
+                    <option value="lastMonth">Last Month</option>
+                </select>
+            </div>
+
+            <div class="action-buttons">
+                <button id="addTaskBtn" class="btn btn-primary">Add New Task Entry</button>
+                <button id="exportBtn" class="btn btn-secondary">Export to Excel</button>
+                <button id="clearFiltersBtn" class="btn btn-tertiary">Clear Filters</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="tasksTable">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Task-1</th>
+                        <th>Task-2</th>
+                        <th>Task-3</th>
+                        <th>Total Hours</th>
+                        <th>Percentage</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tasksTableBody">
+                    <!-- Dynamic content will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-card">
+                <h3>Overall Statistics</h3>
+                <div id="statsContent">
+                    <p>Total Entries: <span id="totalEntries">0</span></p>
+                    <p>Total Hours Logged: <span id="totalHours">0</span></p>
+                    <p>Average Hours per Entry: <span id="avgHours">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="employee-stats-section">
+            <div class="employee-stats-card">
+                <h3>Employee Statistics</h3>
+                <div class="table-container">
+                    <table id="employeeStatsTable">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Total Entries</th>
+                                <th>Hours Logged</th>
+                                <th>Average Hours per Day</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeStatsTableBody">
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding/editing tasks -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Task Entry</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="modalEmployee">Employee:</label>
+                        <select id="modalEmployee" required>
+                            <option value="">Select Employee</option>
+                            <option value="Meghana Krishna">Meghana Krishna</option>
+                            <option value="Yogashree YV">Yogashree YV</option>
+                            <option value="Bhuvana V">Bhuvana V</option>
+                            <option value="Meenakshi Degulmath">Meenakshi Degulmath</option>
+                            <option value="Rachana Raghu">Rachana Raghu</option>
+                            <option value="Samitha R Amin">Samitha R Amin</option>
+                            <option value="Midhun Karunanidhi">Midhun Karunanidhi</option>
+                            <option value="Harsha Priyadarshini">Harsha Priyadarshini</option>
+                            <option value="Prajwal MD">Prajwal MD</option>
+                            <option value="Manaswitha Paladugu">Manaswitha Paladugu</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalDate">Date:</label>
+                        <input type="date" id="modalDate" min="2026-05-18" max="2026-12-31" required>
+                    </div>
+
+                    <div class="tasks-grid">
+                        <div class="task-group">
+                            <label for="modalTask1">Task-1:</label>
+                            <input type="text" id="modalTask1" placeholder="Enter task 1 description">
+                            <label for="modalHours1">Hours-1:</label>
+                            <input type="number" id="modalHours1" min="0" max="8" step="0.5" placeholder="0">
+                            <label for="modalFile1">Attachment-1:</label>
+                            <input type="file" id="modalFile1" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif" multiple>
+                            <div class="file-list" id="fileList1"></div>
+                        </div>
+
+                        <div class="task-group">
+                            <label for="modalTask2">Task-2:</label>
+                            <input type="text" id="modalTask2" placeholder="Enter task 2 description">
+                            <label for="modalHours2">Hours-2:</label>
+                            <input type="number" id="modalHours2" min="0" max="8" step="0.5" placeholder="0">
+                            <label for="modalFile2">Attachment-2:</label>
+                            <input type="file" id="modalFile2" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif" multiple>
+                            <div class="file-list" id="fileList2"></div>
+                        </div>
+
+                        <div class="task-group">
+                            <label for="modalTask3">Task-3:</label>
+                            <input type="text" id="modalTask3" placeholder="Enter task 3 description">
+                            <label for="modalHours3">Hours-3:</label>
+                            <input type="number" id="modalHours3" min="0" max="8" step="0.5" placeholder="0">
+                            <label for="modalFile3">Attachment-3:</label>
+                            <input type="file" id="modalFile3" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif" multiple>
+                            <div class="file-list" id="fileList3"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalNotes">Notes:</label>
+                        <textarea id="modalNotes" rows="3" placeholder="Additional notes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Hours: <span id="modalTotalHours">0</span></label>
+                        <div class="total-hours-warning" id="totalHoursWarning" style="display: none;">
+                            ⚠️ Total hours cannot exceed 8 per day
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" form="taskForm" class="btn btn-primary" id="saveBtn">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
